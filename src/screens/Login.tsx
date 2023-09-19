@@ -27,7 +27,7 @@ const LoginScreen: React.FC = ({ navigation }: any) => {
 
   return (
     <ImageBackground
-      source={require('../components/img/pet.jpg')}
+      source={require('../components/img/pokemon.jpg')}
       style={styles.backgroundImage}
     >
       <View style={styles.container}>

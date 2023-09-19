@@ -26,7 +26,7 @@ const CadastroScreen: React.FC = ({ navigation }: any) => {
 
   return (
     <ImageBackground
-      source={require('../components/img/pet.jpg')}
+      source={require('../components/img/pokemon2.jpg')}
       style={styles.backgroundImage}
     >
       <View style={styles.container}>
@@ -46,11 +46,11 @@ const CadastroScreen: React.FC = ({ navigation }: any) => {
             style={styles.input}
           />
           <View style={styles.button}>
-            <Button title="Cadastrar" onPress={submit} color="darkgreen" />
+            <Button title="Cadastrar" onPress={submit} color="#A34704" />
           </View>
           <Text style={styles.textCadastro}>
             Já tem conta? <Text style={styles.textLink} onPress={navigateToLogin}>Entrar</Text>
-            </Text>
+          </Text>
         </View>
       </View>
     </ImageBackground>
@@ -58,42 +58,42 @@ const CadastroScreen: React.FC = ({ navigation }: any) => {
 };
 
 const styles = StyleSheet.create({
-    title: {
-        fontSize: 32,
-        marginBottom: 20,
-        textAlign: 'center',
-        fontWeight: 'bold',
-    },
-    textCadastro: {
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    textLink: {
-        fontSize: 19,
-        fontWeight: 'bold',
-        color: 'blue'
-    },
-    cadastroBox: {
-        backgroundColor: 'rgba(213, 255, 213, 0.8)',
-        padding: 20,
-        borderRadius: 10,
-        marginLeft: 20,
-        marginRight: 20,
-        borderWidth: 3,
-    },
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-    },
-    input: {
-        width: '100%',
-        height: 40,
-        borderColor: 'black',
-        borderWidth: 3,
-        borderRadius: 5,
-        marginBottom: 10,
-        paddingLeft: 10,
-        backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  title: {
+    fontSize: 32,
+    marginBottom: 20,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  textCadastro: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  textLink: {
+    fontSize: 19,
+    fontWeight: 'bold',
+    color: 'blue'
+  },
+  cadastroBox: {
+    backgroundColor: 'rgba(255, 201, 74, 0.8)',
+    padding: 20,
+    borderRadius: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    borderWidth: 3,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  input: {
+    width: '100%',
+    height: 40,
+    borderColor: 'black',
+    borderWidth: 3,
+    borderRadius: 5,
+    marginBottom: 10,
+    paddingLeft: 10,
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
   },
   button: {
     marginBottom: 14,
