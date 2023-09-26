@@ -5,6 +5,7 @@ import axios from 'axios';
 const LoginScreen: React.FC = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [hasError, setHasError] = useState(false);
 
   const submit = async () => {
     try {
@@ -15,14 +16,25 @@ const LoginScreen: React.FC = ({ navigation }: any) => {
 
       const req = await axios.post('https://tamagochiapi-clpsampedro.b4a.run/login/', user);
 
+      setHasError(false);
       navigation.navigate('Home', { email: email, senha: password });
     } catch (error) {
-      console.error(error);
+      setHasError(true);
     }
   };
 
   const navigateToCadastro = () => {
     navigation.navigate('Cadastro');
+  };
+
+  const emailChange = (text: string) => {
+    setEmail(text);
+    setHasError(false);
+  };
+
+  const passwordChange = (text: string) => {
+    setPassword(text);
+    setHasError(false);
   };
 
   return (
@@ -36,16 +48,17 @@ const LoginScreen: React.FC = ({ navigation }: any) => {
           <TextInput
             placeholder="Email"
             value={email}
-            onChangeText={(text) => setEmail(text)}
-            style={styles.input}
+            onChangeText={emailChange}
+            style={[styles.input, hasError && styles.inputError]}
           />
           <TextInput
             placeholder="Senha"
             value={password}
-            onChangeText={(text) => setPassword(text)}
+            onChangeText={passwordChange}
             secureTextEntry
-            style={styles.input}
+            style={[styles.input, hasError && styles.inputError]}
           />
+          {hasError && <Text style={styles.errorMessage}>Email e/ou senha inválidos</Text>}
           <Button title="Login" onPress={submit} color="#950006" />
 
           <View style={styles.buttonSpacing}></View>
@@ -85,6 +98,16 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingLeft: 10,
     backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  },
+  inputError: {
+    borderColor: 'red',
+    borderWidth: 3,
+  },
+  errorMessage: {
+    color: 'red',
+    fontSize: 16,
+    marginLeft: 10,
+    marginBottom: 10,
   },
   buttonSpacing: {
     marginBottom: 10,
