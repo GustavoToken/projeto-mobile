@@ -1,64 +1,166 @@
-import axios from 'axios'; //npm install axios
-import React, {useCallback, useEffect, useState} from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  SafeAreaView,
-  Text,
-  View,
-} from 'react-native';
+import React, { useCallback, useEffect, useState } from "react";
+import { StyleSheet, ActivityIndicator, FlatList, SafeAreaView, View, Text, TouchableOpacity, Modal } from "react-native";
+import axios from '../axios.config';
+import { Feather } from '@expo/vector-icons';
+
 
 type ListItemProps = {
-  university: {
-    name: string;
-    web_pages: string[];
-  };
-};
+    pets: {
+        id: string;
+        name: string;
+    };
+    onDelete: (id: string) => void;
+}
 
-const ListItem = ({university}: ListItemProps) => {
-  return (
-    <View>
-      <Text>{university.name}</Text>
-      <Text>{university.web_pages[0]}</Text>
-    </View>
-  );
-};
+const ListItem = ({ pets, onDelete }: ListItemProps) => {
+    const [showConfirmation, setShowConfirmation] = useState(false);
+    
+    const handleDelete = async (id: string) => {
+        setShowConfirmation(true);
+    };
+
+    const confirmDelete = async (id: string) => {
+        try {
+            await axios.delete(`/pet/${id}`);
+            onDelete(id);
+        } catch (error) {
+            console.error('Erro ao excluir o pet', error);
+        } finally {
+            setShowConfirmation(false);
+        }
+    };
+    
+    return (
+        <View style={styles.card}>
+            <View>
+                <Text style={styles.cardText}>ID: {pets.id}</Text>
+                <Text style={styles.cardText}>Name: {pets.name}</Text>
+            </View>
+            <TouchableOpacity onPress={() => handleDelete(pets.id)} style={styles.deleteButton}>
+                <Feather name="trash-2" size={20} color="white" />
+            </TouchableOpacity>
+            <Modal transparent={true} animationType="slide" visible={showConfirmation}>
+                <View style={styles.confirmationBox}>
+                    <Text style={styles.confirmationText}>Deseja realmente deletar o pet?</Text>
+                    <View style={styles.confirmationButtonContainer}>
+                        <TouchableOpacity
+                            style={[styles.confirmationButton, styles.confirmButton]}
+                            onPress={() => confirmDelete(pets.id)}
+                            >
+                            <Text style={styles.buttonText}>Sim</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[styles.confirmationButton, styles.cancelButton]}
+                            onPress={() => setShowConfirmation(false)}
+                            >
+                            <Text style={styles.buttonText}>Não</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
+        </View>
+    );
+}
 
 const ListPage = () => {
-  const [universities, setUniversities] = useState();
-  const [loading, setLoading] = useState(false);
+    const [pets, setPets] = useState<{ id: string; name: string }[]>([]);
+    const [loading, setLoading] = useState(false);
+    
+    const handleDeletePet = (deletedId: string) => {
+        setPets((prevPets) => prevPets.filter((pet) => pet.id !== deletedId));
+    };
 
-  const getUniversityData = useCallback(async () => {
-    try {
-      setLoading(true);
-      const {data} = await axios.get(
-        'http://universities.hipolabs.com/search?country=Brazil',
-      );
-      setUniversities(data);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+    const getPets = useCallback(async () => {
+        try {
+            setLoading(true);
+            const { data } = await axios.get('/pets');
+            setPets(data.pets);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+    
+    useEffect(() => {
+        getPets();
+    }, []);
+    
+    return (
+        <SafeAreaView style={styles.container}>
+            {loading === true ? (
+                <ActivityIndicator />
+            ) : (
+                <FlatList
+                data={pets}
+                renderItem={({ item }) => <ListItem pets={item} onDelete={handleDeletePet} />}
+                keyExtractor={(item) => item.id.toString()}
+                />
+                )}
+        </SafeAreaView>
+    );
+}
 
-  useEffect(() => {
-    getUniversityData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return (
-    <SafeAreaView>
-      {loading === true ? (
-        <ActivityIndicator size="large" />
-      ) : (
-        <FlatList
-          data={universities}
-          renderItem={({item}) => <ListItem university={item} />}
-        />
-      )}
-    </SafeAreaView>
-  );
-};
-
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#252126",
+        alignItems: 'center',
+        padding: 20
+    },
+    card: {
+        borderWidth: 2,
+        borderRadius: 20,
+        margin: 5,
+        padding: 14,
+        width: 300,
+        backgroundColor: '#fff',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    cardText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    deleteButton: {
+        backgroundColor: '#d92a02',
+        padding: 10,
+        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    confirmationBox: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    confirmationText: {
+        color: 'white',
+        fontSize: 18,
+        marginBottom: 20,
+    },
+    confirmationButtonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    confirmationButton: {
+        margin: 10,
+        padding: 10,
+        borderRadius: 5,
+    },
+    confirmButton: {
+        backgroundColor: 'red',
+    },
+    cancelButton: {
+        backgroundColor: 'green',
+    },
+    buttonText: {
+        color: 'white',
+    },
+});
 export default ListPage;

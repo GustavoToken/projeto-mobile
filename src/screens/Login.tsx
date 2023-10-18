@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ImageBackground } from 'react-native';
-import axios from 'axios';
+import axios from '../axios.config';
+import user from '../storage';
 
 const LoginScreen: React.FC = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [hasError, setHasError] = useState(false);
+  const userStorage = user();
 
   const submit = async () => {
     try {
@@ -14,7 +16,8 @@ const LoginScreen: React.FC = ({ navigation }: any) => {
         password: password,
       };
 
-      const req = await axios.post('https://tamagochiapi-clpsampedro.b4a.run/login/', user);
+      const req = await axios.post('login/', user);
+      userStorage.setToken(req.data.token);
 
       setHasError(false);
       navigation.navigate('Home', { email: email, senha: password });
