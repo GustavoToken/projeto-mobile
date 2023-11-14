@@ -12,7 +12,7 @@ const CadastrarPets = ({ navigation }: any) => {
             };
             await axios.post('/pet', cadastro);
 
-            navigation.navigate('Home');
+            navigation.navigate('ListPage');
 
         } catch (error) {
             console.error(error);

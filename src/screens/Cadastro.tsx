@@ -25,7 +25,7 @@ const CadastroScreen: React.FC = ({ navigation }: any) => {
         password: password,
       };
 
-      const req = await axios.post('register/', user);
+      const req = await axios.post('/register', user);
       navigation.navigate('Login');
     } catch (error) {
       console.error(error);
