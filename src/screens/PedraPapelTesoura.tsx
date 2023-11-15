@@ -31,9 +31,11 @@ const JogoPedraPapelTesoura = ({
         ? 'Empate'
         : (escolhaUsuario === 'Pedra' && escolhaAdversario === 'Tesoura') ||
           (escolhaUsuario === 'Papel' && escolhaAdversario === 'Pedra') ||
-          (escolhaUsuario === 'Tesoura' && escolhaAdversario === 'Papel');
+          (escolhaUsuario === 'Tesoura' && escolhaAdversario === 'Papel')
+          ? 'Vitória'
+          : 'Derrota';
 
-    const userWins = resultadoJogo !== 'Empate';
+    const userWins = resultadoJogo === 'Vitória';
 
     setModalContent(
       `${resultadoJogo === 'Empate' ? 'Empate' : userWins ? 'Você ganhou!' : 'Você perdeu!'}\n

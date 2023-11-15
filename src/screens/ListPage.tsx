@@ -63,19 +63,19 @@ const ListItem = ({ pets, onDelete, onEdit }: ListItemProps) => {
   const getAvatarImage = (petName: string) => {
     if (petName.toLowerCase() === "pikachu") {
       return require('../components/img/pikachu.png');
-    } 
+    }
     else if (petName.toLowerCase() === "bulbassauro") {
       return require('../components/img/bullbasaur.png');
-    } 
+    }
     else if (petName.toLowerCase() === "charmander") {
       return require('../components/img/charmander.png');
-    } 
+    }
     else if (petName.toLowerCase() === "meowth") {
       return require('../components/img/meowth.png');
-    } 
+    }
     else if (petName.toLowerCase() === "snorlax") {
       return require('../components/img/snorlax.png');
-    } 
+    }
     else {
       return require('../components/img/avatar.png');
     }
@@ -83,7 +83,7 @@ const ListItem = ({ pets, onDelete, onEdit }: ListItemProps) => {
 
   const navigateToDetalhes = () => {
     //@ts-ignore
-    navigation.navigate('Detalhes', { id: pets.id, name: pets.name}); 
+    navigation.navigate('Detalhes', { id: pets.id, name: pets.name });
   };
 
   return (
@@ -181,7 +181,6 @@ const ListPage = () => {
 
   return (
     <ImageBackground source={require('../components/img/paisagem.jpeg')} style={styles.backgroundImage}>
-      {/* Adicionando o KeyboardAvoidingView */}
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -200,17 +199,16 @@ const ListPage = () => {
               />
             </>
           )}
-          {/* Botões inferiores agora estarão fora do KeyboardAvoidingView */}
           <View style={styles.bottomButtons}>
             <TouchableOpacity
-            //@ts-ignore
+              //@ts-ignore
               onPress={() => navigation.navigate('Login')}
               style={[styles.bottomButton, { backgroundColor: 'orange' }]}
             >
               <Text style={styles.buttonText}>Deslogar</Text>
             </TouchableOpacity>
             <TouchableOpacity
-            //@ts-ignore
+              //@ts-ignore
               onPress={() => navigation.navigate('CadastroPet')}
               style={[styles.bottomButton, { backgroundColor: 'lightblue' }]}
             >
@@ -224,119 +222,119 @@ const ListPage = () => {
 };
 
 const styles = StyleSheet.create({
-    backgroundImage: {
-        flex: 1,
-        resizeMode: 'cover',
-        justifyContent: 'center',
-    },
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        padding: 20
-    },
-    card: {
-        borderWidth: 2,
-        borderRadius: 20,
-        margin: 5,
-        padding: 14,
-        width: 368,
-        backgroundColor: '#fff',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    cardTextContainer: {
-        flex: 1,
-        justifyContent: 'center',
-    },
-    cardText: {
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    additionalInfo: {
-        fontSize: 14,
-        color: 'gray',
-    },
-    editInput: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        borderBottomWidth: 1,
-    },
-    avatarContainer: {
-        marginRight: 10,
-    },
-    avatar: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
-    },
-    editButton: {
-        padding: 10,
-        borderRadius: 5,
-        justifyContent: 'center',
-    },
-    deleteButton: {
-        padding: 10,
-        borderRadius: 5,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    saveButton: {
-        padding: 10,
-        borderRadius: 5,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    confirmationBox: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    confirmationText: {
-        color: 'white',
-        fontSize: 18,
-        marginBottom: 20,
-    },
-    confirmationButtonContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-    },
-    confirmationButton: {
-        margin: 10,
-        padding: 10,
-        borderRadius: 5,
-    },
-    confirmButton: {
-        backgroundColor: 'orange',
-    },
-    cancelButton: {
-        backgroundColor: 'lightblue',
-    },
-    buttonText: {
-        color: 'black',
-        fontWeight: 'bold',
-        fontSize: 18,
-    },
-    bottomButtons: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginTop: 10,
-        marginRight: 5,
-        gap: 5,
-    },
-    bottomButton: {
-        borderColor: 'black',
-        borderWidth: 2,
-        padding: 10,
-        borderRadius: 5,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '36%',
-    },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 20
+  },
+  card: {
+    borderWidth: 2,
+    borderRadius: 20,
+    margin: 5,
+    padding: 14,
+    width: 368,
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  cardTextContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  cardText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  additionalInfo: {
+    fontSize: 14,
+    color: 'gray',
+  },
+  editInput: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    borderBottomWidth: 1,
+  },
+  avatarContainer: {
+    marginRight: 10,
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+  },
+  editButton: {
+    padding: 10,
+    borderRadius: 5,
+    justifyContent: 'center',
+  },
+  deleteButton: {
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  saveButton: {
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  confirmationBox: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  confirmationText: {
+    color: 'white',
+    fontSize: 18,
+    marginBottom: 20,
+  },
+  confirmationButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  confirmationButton: {
+    margin: 10,
+    padding: 10,
+    borderRadius: 5,
+  },
+  confirmButton: {
+    backgroundColor: 'orange',
+  },
+  cancelButton: {
+    backgroundColor: 'lightblue',
+  },
+  buttonText: {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+  bottomButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 10,
+    marginRight: 5,
+    gap: 5,
+  },
+  bottomButton: {
+    borderColor: 'black',
+    borderWidth: 2,
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '36%',
+  },
 });
 
 export default ListPage;
